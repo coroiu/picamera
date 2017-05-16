@@ -71,7 +71,7 @@ class ClockSplitter(mo.MMALPythonComponent):
         center = size // 2
         face = Image.new('L', size)
         draw = ImageDraw.Draw(face)
-        draw.ellipse([origin, size - 1], outline=(255,))
+        draw.ellipse([origin, size - 1], outline=(255))
         while self.enabled:
             # loop round rendering the clock hands on a copy of the face
             img = face.copy()
@@ -83,9 +83,9 @@ class ClockSplitter(mo.MMALPythonComponent):
             hour_pos = center + Coord.clock_arm(2 * pi * (timestamp % 43200 / 43200)) * 30
             minute_pos = center + Coord.clock_arm(2 * pi * (timestamp % 3600 / 3600)) * 45
             second_pos = center + Coord.clock_arm(2 * pi * (timestamp % 60 / 60)) * 45
-            draw.line([center, hour_pos], fill=(200,), width=2)
-            draw.line([center, minute_pos], fill=(200,), width=2)
-            draw.line([center, second_pos], fill=(200,), width=1)
+            draw.line([center, hour_pos], fill=(200), width=2)
+            draw.line([center, minute_pos], fill=(200), width=2)
+            draw.line([center, second_pos], fill=(200), width=1)
             # assign the rendered image to the internal variable
             with self._lock:
                 self._clock_image = img
