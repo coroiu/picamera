@@ -1223,11 +1223,14 @@ class MMALPort(MMALControlPort):
                     self._stopped = True
             finally:
                 buf.release()
-                try:
-                    self._pool.send_buffer(block=False)
-                except PiCameraPortDisabled:
-                    # The port was disabled, no point trying again
-                    pass
+                while not self._stopped:
+                    try:
+                        self._pool.send_buffer(timeout=0.01)
+                    except PiCameraMMALError as e:
+                        if e.status != mmal.MMAL_EAGAIN:
+                            raise
+                    else:
+                        break
 
         # Workaround: There is a bug in the MJPEG encoder that causes a
         # deadlock if the FIFO is full on shutdown. Increasing the encoder
