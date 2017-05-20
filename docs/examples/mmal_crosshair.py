@@ -18,11 +18,11 @@ class Crosshair(mo.MMALPythonComponent):
             draw.line([
                 (port.framesize.width // 2, 0),
                 (port.framesize.width // 2, port.framesize.height)],
-                fill=(255,), width=1)
+                fill=(255), width=1)
             draw.line([
                 (0, port.framesize.height // 2),
                 (port.framesize.width , port.framesize.height // 2)],
-                fill=(255,), width=1)
+                fill=(255), width=1)
         # buf is the buffer containing the frame from our input port. First
         # we try and grab a buffer from our output port
         try:
